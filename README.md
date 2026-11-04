@@ -7,6 +7,7 @@
 [![MySQL / SQLite](https://img.shields.io/badge/Database-MySQL%20%7C%20SQLite-4479A1?logo=mysql&logoColor=white)](https://dev.mysql.com/)
 [![JWT](https://img.shields.io/badge/Auth-JWT%20Tokens-000000?logo=jsonwebtokens&logoColor=white)](https://jwt.io/)
 [![Security](https://img.shields.io/badge/Security-Helmet%20%26%20Bcrypt-E53E3E?logo=shield&logoColor=white)](https://helmetjs.github.io/)
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 An enterprise-grade, full-stack online examination and testing engine designed for educational institutions, testing centers, and competitive assessment programs. It features timed examination environments, automated grading, tie-breaking dynamic rankings, comprehensive administrative consoles, and candidate performance analytics.
 
@@ -38,6 +39,7 @@ An enterprise-grade, full-stack online examination and testing engine designed f
    - [Running the Project](#running-the-project)
 8. [Default Demo Accounts](#default-demo-accounts)
 9. [Security Architecture](#security-architecture)
+10. [License](#license)
 
 ---
 
@@ -767,3 +769,9 @@ For immediate testing, use the pre-seeded accounts or the one-click demo buttons
 4. **SQL Injection Defense**: All database queries strictly utilize parameterized statement placeholders (`?`) preventing SQL injection vulnerabilities.
 5. **Session Isolation**: A candidate cannot access another candidate's ongoing examination session or modify submitted scorecards.
 6. **Integrity Locks**: Exam evaluations use `SELECT ... FOR UPDATE` row locks inside atomic SQL transactions (`connection.beginTransaction()`) to eliminate race conditions on multiple rapid clicks.
+
+---
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
