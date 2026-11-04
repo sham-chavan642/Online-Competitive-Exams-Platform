@@ -17,9 +17,9 @@ A complete, modern, and responsive React frontend for an Online Competitive Exam
 - **Design**: Premium, responsive UI built with vanilla CSS. Dark sidebar and professional cards.
 
 ## Technology Stack
-- React.js (v18+)
-- Vite
-- React Router (v6)
+- React (v19)
+- Vite (v8)
+- React Router (v7)
 - Axios
 - Vanilla CSS
 - Lucide React (Icons)
@@ -57,15 +57,17 @@ frontend/
    ```
 
 ## Environment Setup
-Create a `.env` file in the root of the `frontend` folder using `.env.example` as a template:
+In development, Vite proxies `/api` to the backend at `http://127.0.0.1:5001`. To use a different backend port, create `frontend/.env` and set:
 ```env
-VITE_API_URL=http://localhost:5000/api
+VITE_API_PROXY_TARGET=http://127.0.0.1:5001
 ```
+`VITE_API_URL` is only used for production builds; keep it as `/api` when the frontend is served by the backend.
 
 ## Run Development Server
 ```bash
 npm run dev
 ```
+The development server runs at `http://localhost:3002` by default.
 
 ## Build for Production
 ```bash

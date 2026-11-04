@@ -1,13 +1,12 @@
 # Online Competitive Exams Platform
 
-[![Node.js](https://img.shields.io/badge/Node.js-v20%2B-339933?logo=node.js&logoColor=white)](https://nodejs.org/)
-[![React](https://img.shields.io/badge/React-19.0.0-61DAFB?logo=react&logoColor=black)](https://react.dev/)
+[![Node.js](https://img.shields.io/badge/Node.js-v22.5%2B-339933?logo=node.js&logoColor=white)](https://nodejs.org/)
+[![React](https://img.shields.io/badge/React-19.2.8-61DAFB?logo=react&logoColor=black)](https://react.dev/)
 [![Vite](https://img.shields.io/badge/Vite-8.3.5-646CFF?logo=vite&logoColor=white)](https://vitejs.dev/)
 [![Express](https://img.shields.io/badge/Express-5.2.1-000000?logo=express&logoColor=white)](https://expressjs.com/)
 [![MySQL / SQLite](https://img.shields.io/badge/Database-MySQL%20%7C%20SQLite-4479A1?logo=mysql&logoColor=white)](https://dev.mysql.com/)
 [![JWT](https://img.shields.io/badge/Auth-JWT%20Tokens-000000?logo=jsonwebtokens&logoColor=white)](https://jwt.io/)
 [![Security](https://img.shields.io/badge/Security-Helmet%20%26%20Bcrypt-E53E3E?logo=shield&logoColor=white)](https://helmetjs.github.io/)
-[![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 An enterprise-grade, full-stack online examination and testing engine designed for educational institutions, testing centers, and competitive assessment programs. It features timed examination environments, automated grading, tie-breaking dynamic rankings, comprehensive administrative consoles, and candidate performance analytics.
 
@@ -39,7 +38,6 @@ An enterprise-grade, full-stack online examination and testing engine designed f
    - [Running the Project](#running-the-project)
 8. [Default Demo Accounts](#default-demo-accounts)
 9. [Security Architecture](#security-architecture)
-10. [License](#license)
 
 ---
 
@@ -70,8 +68,8 @@ The platform operates as a modern decoupled full-stack application configured wi
                                     ▼
 ┌────────────────────────────────────────────────────────────────────────┐
 │                        DATABASE LAYER                                  │
-│  MySQL 8.0+ / SQLite 3 Driver (mysql2 & node:sqlite compatibility)     │
-│  9 Relational Entities • Strict UNIQUE Constraints • Cascading Deletes │
+│  MySQL (mysql2) or in-memory SQLite (node:sqlite)                     │
+│  Core relational schema • Unique Constraints • Exam Security Tables  │
 └────────────────────────────────────────────────────────────────────────┘
 ```
 
@@ -638,7 +636,7 @@ Online_Competitive_Exams_Platform/
 │   │   ├── utils/
 │   │   │   └── generateToken.js     # Signed JWT generator
 │   │   ├── app.js                   # Express application setup
-│   │   └── server.js                # Server entry point (port 3000)
+│   │   └── server.js                # Server entry point (port 5001)
 │   ├── tests/
 │   │   └── app.test.js              # Integration test suite
 │   ├── package.json
@@ -691,26 +689,26 @@ Online_Competitive_Exams_Platform/
 ## Getting Started & Installation
 
 ### Prerequisites
-- **Node.js**: `v20.0.0` or higher
-- **npm**: `v9.0.0` or higher
+- **Node.js**: `v22.5.0` or higher (required for the built-in SQLite fallback)
+- **npm**: `v10.0.0` or higher
 - *(Optional)* **MySQL**: `v8.0+` if running external MySQL instance
 
 ### Configuration (.env)
 
-Create a `.env` file in the root directory:
+The backend reads environment variables from `backend/.env`. From the repository root, copy the example:
+
+```bash
+cp .env.example backend/.env
+```
+
+On PowerShell, use `Copy-Item .env.example backend/.env` instead. Set a private `JWT_SECRET` before using the app beyond local development.
+
+The example includes MySQL connection settings. To use the built-in in-memory SQLite database instead, remove or leave unset `DB_HOST`, `DB_NAME`, and `DB_USER`. SQLite data is reset when the server restarts. To use MySQL, create the database and load the schema and seed data as described in [backend/README.md](backend/README.md).
 
 ```env
-# Application Port
-PORT=3000
-
-# Security Credentials
-JWT_SECRET=production_secret_change_this_to_a_secure_random_string
-JWT_EXPIRES_IN=7d
-
-# Frontend API URL (defaults to proxy /api)
-VITE_API_URL=/api
-
-# Optional: External MySQL Configuration (if not using default in-memory SQLite)
+PORT=5001
+JWT_SECRET=replace-with-a-long-random-secret
+JWT_EXPIRES_IN=24h
 DB_HOST=localhost
 DB_PORT=3306
 DB_USER=root
@@ -725,11 +723,13 @@ DB_NAME=online_exam_system
    npm install
    ```
 
-2. **Run in development mode (builds frontend & starts backend server):**
+2. **Build the frontend and start the full app:**
    ```bash
    npm run dev
    ```
-   Open your browser at: `http://localhost:3000`
+  Open `http://localhost:5001`.
+
+  For frontend hot reload, run `npm run dev --workspace=backend` and `npm run dev --workspace=frontend` in separate terminals. The frontend is served at `http://localhost:3002` and proxies `/api` to the backend on port `5001`.
 
 3. **Build the production bundle:**
    ```bash
@@ -767,9 +767,3 @@ For immediate testing, use the pre-seeded accounts or the one-click demo buttons
 4. **SQL Injection Defense**: All database queries strictly utilize parameterized statement placeholders (`?`) preventing SQL injection vulnerabilities.
 5. **Session Isolation**: A candidate cannot access another candidate's ongoing examination session or modify submitted scorecards.
 6. **Integrity Locks**: Exam evaluations use `SELECT ... FOR UPDATE` row locks inside atomic SQL transactions (`connection.beginTransaction()`) to eliminate race conditions on multiple rapid clicks.
-
----
-
-## License
-
-This project is licensed under the [MIT License](LICENSE).

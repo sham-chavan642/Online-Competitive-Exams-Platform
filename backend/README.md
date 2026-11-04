@@ -52,9 +52,9 @@ The system consists of the following entities: `admin`, `student`, `topic`, `exa
    ```
 
 3. **Environment Variables:**
-   Copy the example environment variables file and update it with your credentials:
+   From the `backend` directory, copy the root example environment file and update it with your credentials:
    ```bash
-   cp .env.example .env
+   cp ../.env.example .env
    ```
    *Edit `.env` to match your MySQL credentials.*
    To enable syllabus-based question generation, add your Groq API key to
