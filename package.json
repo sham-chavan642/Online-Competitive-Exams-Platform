@@ -1,0 +1,26 @@
+{
+  "name": "online-competitive-exams-platform",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "frontend",
+    "backend"
+  ],
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.6",
+    "dotenv": "^18.0.4",
+    "express": "^5.2.1",
+    "express-validator": "^7.3.2",
+    "helmet": "^8.3.0",
+    "jsonwebtoken": "^9.0.3",
+    "mysql2": "^3.24.4"
+  },
+  "scripts": {
+    "build:frontend": "npm run build --workspace=frontend",
+    "build": "npm run build:frontend",
+    "lint": "npm run lint --workspace=frontend",
+    "dev": "npm run build:frontend && node backend/src/server.js",
+    "start": "node backend/src/server.js"
+  }
+}

@@ -1,0 +1,20 @@
+const express = require('express');
+const router = express.Router();
+const adminController = require('../controllers/adminController');
+const securityController = require('../controllers/securityController');
+const questionGenerationController = require('../controllers/questionGenerationController');
+const authMiddleware = require('../middleware/authMiddleware');
+const adminMiddleware = require('../middleware/adminMiddleware');
+
+router.use(authMiddleware, adminMiddleware);
+router.get('/dashboard', adminController.getDashboardStats);
+router.get('/students', adminController.getStudents);
+router.get('/students/:id', adminController.getStudentById);
+router.get('/attempts', adminController.getAttempts);
+router.get('/results', adminController.getResults);
+router.post('/questions/generate', questionGenerationController.generateQuestions);
+router.get('/security/events', securityController.getAdminEvents);
+router.get('/security/settings', securityController.getAdminSettings);
+router.put('/security/settings/:examId', securityController.updateAdminSettings);
+router.post('/attempts/:attemptId/recover', securityController.recoverAutoSubmittedAttempt);
+module.exports = router;
