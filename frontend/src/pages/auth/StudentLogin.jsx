@@ -3,6 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { authApi } from '../../services/authApi';
 import { useAuth } from '../../hooks/useAuth';
 import ErrorMessage from '../../components/ErrorMessage';
+import ThemeToggle from '../../components/ThemeToggle';
 import { GraduationCap, Eye, EyeOff, LogIn, Sparkles, CheckCircle2 } from 'lucide-react';
 
 const StudentLogin = () => {
@@ -49,6 +50,7 @@ const StudentLogin = () => {
 
   return (
     <div
+      className="auth-page"
       style={{
         minHeight: '100vh',
         backgroundColor: 'var(--background-color)',
@@ -58,6 +60,7 @@ const StudentLogin = () => {
         padding: '1.5rem',
       }}
     >
+      <ThemeToggle floating />
       <div
         style={{
           width: '100%',

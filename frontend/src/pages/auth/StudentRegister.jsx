@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { authApi } from '../../services/authApi';
 import ErrorMessage from '../../components/ErrorMessage';
+import ThemeToggle from '../../components/ThemeToggle';
 import { GraduationCap, UserPlus, Eye, EyeOff, CheckCircle2 } from 'lucide-react';
 
 const StudentRegister = () => {
@@ -79,6 +80,7 @@ const StudentRegister = () => {
 
   return (
     <div
+      className="auth-page"
       style={{
         minHeight: '100vh',
         backgroundColor: 'var(--background-color)',
@@ -88,6 +90,7 @@ const StudentRegister = () => {
         padding: '2rem 1.5rem',
       }}
     >
+      <ThemeToggle floating />
       <div
         style={{
           width: '100%',

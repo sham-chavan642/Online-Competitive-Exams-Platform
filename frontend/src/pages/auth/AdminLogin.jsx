@@ -3,6 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { authApi } from '../../services/authApi';
 import { useAuth } from '../../hooks/useAuth';
 import ErrorMessage from '../../components/ErrorMessage';
+import ThemeToggle from '../../components/ThemeToggle';
 import { ShieldCheck, Eye, EyeOff, Lock, Sparkles } from 'lucide-react';
 
 const AdminLogin = () => {
@@ -43,25 +44,27 @@ const AdminLogin = () => {
 
   return (
     <div
+      className="auth-page"
       style={{
         minHeight: '100vh',
-        backgroundColor: '#F8FAFC',
+        backgroundColor: 'var(--background-color)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
         padding: '1.5rem',
       }}
     >
+      <ThemeToggle floating />
       <div
         style={{
           width: '100%',
           maxWidth: '440px',
-          backgroundColor: '#FFFFFF',
+          backgroundColor: 'var(--surface-color)',
           borderRadius: 'var(--radius-xl)',
-          border: '1px solid #E2E8F0',
+          border: '1px solid var(--border-color)',
           boxShadow: '0 24px 60px -24px rgba(15, 23, 42, 0.22)',
           padding: '2.5rem 2rem',
-          color: '#0F172A',
+          color: 'var(--text-primary)',
         }}
       >
         {/* Brand */}
@@ -82,10 +85,10 @@ const AdminLogin = () => {
           >
             <ShieldCheck size={28} />
           </div>
-          <h1 style={{ fontSize: '1.5rem', fontWeight: 800, color: '#0F172A' }}>
+          <h1 style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--text-primary)' }}>
             Administrator Portal
           </h1>
-          <p style={{ fontSize: '0.875rem', color: '#64748B', marginTop: '0.25rem' }}>
+          <p style={{ fontSize: '0.875rem', color: 'var(--text-secondary)', marginTop: '0.25rem' }}>
             Authorized personnel only. Manage exams, topics, and question banks.
           </p>
         </div>
@@ -94,9 +97,9 @@ const AdminLogin = () => {
         <div
           style={{
             padding: '0.625rem 0.875rem',
-            backgroundColor: '#FFF7F7',
+            backgroundColor: 'var(--status-error-bg)',
             borderRadius: 'var(--radius-md)',
-            border: '1px dashed #FECACA',
+            border: '1px dashed var(--status-error-border)',
             marginBottom: '1.5rem',
             display: 'flex',
             alignItems: 'center',
@@ -104,7 +107,7 @@ const AdminLogin = () => {
             fontSize: '0.8125rem',
           }}
         >
-          <div className="flex items-center gap-2" style={{ color: '#64748B' }}>
+          <div className="flex items-center gap-2" style={{ color: 'var(--text-secondary)' }}>
             <Sparkles size={15} style={{ color: '#F87171' }} />
             <span>Admin Demo:</span>
           </div>
@@ -126,7 +129,7 @@ const AdminLogin = () => {
 
         <form onSubmit={handleSubmit}>
           <div className="form-group">
-            <label className="form-label" htmlFor="admin-email" style={{ color: '#334155' }}>
+            <label className="form-label" htmlFor="admin-email" style={{ color: 'var(--text-primary)' }}>
               Administrator Email
             </label>
             <input
@@ -134,9 +137,9 @@ const AdminLogin = () => {
               type="email"
               className="form-control"
               style={{
-                backgroundColor: '#FFFFFF',
-                borderColor: '#CBD5E1',
-                color: '#FFFFFF',
+                backgroundColor: 'var(--surface-color)',
+                borderColor: 'var(--border-color)',
+                color: 'var(--text-primary)',
               }}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -147,7 +150,7 @@ const AdminLogin = () => {
           </div>
 
           <div className="form-group">
-            <label className="form-label" htmlFor="admin-password" style={{ color: '#334155' }}>
+            <label className="form-label" htmlFor="admin-password" style={{ color: 'var(--text-primary)' }}>
               Security Password
             </label>
             <div className="input-wrapper">
@@ -156,9 +159,9 @@ const AdminLogin = () => {
                 type={showPassword ? 'text' : 'password'}
                 className="form-control input-with-right-icon"
                 style={{
-                  backgroundColor: '#FFFFFF',
-                  borderColor: '#CBD5E1',
-                  color: '#FFFFFF',
+                  backgroundColor: 'var(--surface-color)',
+                  borderColor: 'var(--border-color)',
+                  color: 'var(--text-primary)',
                 }}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -195,10 +198,10 @@ const AdminLogin = () => {
           </button>
         </form>
 
-        <div style={{ marginTop: '2rem', paddingTop: '1.5rem', borderTop: '1px solid #E2E8F0', textAlign: 'center', fontSize: '0.875rem' }}>
+        <div style={{ marginTop: '2rem', paddingTop: '1.5rem', borderTop: '1px solid var(--border-color)', textAlign: 'center', fontSize: '0.875rem' }}>
           <Link
             to="/login"
-            style={{ color: '#64748B', fontSize: '0.8125rem' }}
+            style={{ color: 'var(--text-secondary)', fontSize: '0.8125rem' }}
           >
             ← Return to Candidate Login
           </Link>

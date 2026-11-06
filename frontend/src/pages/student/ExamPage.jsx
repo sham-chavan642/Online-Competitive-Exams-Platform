@@ -10,6 +10,7 @@ import Timer from '../../components/Timer';
 import Modal from '../../components/Modal';
 import Loading from '../../components/Loading';
 import ErrorMessage from '../../components/ErrorMessage';
+import ThemeToggle from '../../components/ThemeToggle';
 import {
   ShieldAlert,
   Send,
@@ -311,6 +312,7 @@ const ExamPage = () => {
         </div>
 
         <div className="flex items-center gap-4">
+          <ThemeToggle />
           {initialSeconds !== null && (
             <Timer initialSeconds={initialSeconds} onTimeUp={handleFinalSubmit} />
           )}

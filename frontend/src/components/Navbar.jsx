@@ -2,6 +2,7 @@ import React from 'react';
 import { useAuth } from '../hooks/useAuth';
 import { useNavigate, Link } from 'react-router-dom';
 import { Menu, LogOut, ChevronRight, User } from 'lucide-react';
+import ThemeToggle from './ThemeToggle';
 
 const Navbar = ({ title, breadcrumbs = [], onToggleSidebar }) => {
   const { user, logout, role } = useAuth();
@@ -47,6 +48,7 @@ const Navbar = ({ title, breadcrumbs = [], onToggleSidebar }) => {
       </div>
 
       <div className="flex items-center gap-3">
+        <ThemeToggle />
         <div
           style={{
             display: 'inline-flex',
