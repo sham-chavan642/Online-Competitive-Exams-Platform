@@ -10,14 +10,36 @@ describe('App Endpoints', () => {
     }
   });
 
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
+
   describe('GET /api/health', () => {
-    it('should return health status', async () => {
+    it('returns a healthy status when the database is connected', async () => {
+      jest.spyOn(pool, 'query').mockResolvedValue([]);
+
       const res = await request(app).get('/api/health');
-      
-      // Depending on whether the DB is connected, we might get 200 or 500
-      expect([200, 500]).toContain(res.statusCode);
-      expect(res.body).toHaveProperty('success');
-      expect(res.body).toHaveProperty('database');
+
+      expect(res.statusCode).toBe(200);
+      expect(res.body).toEqual({
+        success: true,
+        message: 'Server is healthy',
+        database: 'connected'
+      });
+    });
+
+    it('returns a disconnected status when the database query fails', async () => {
+      jest.spyOn(pool, 'query').mockRejectedValue(new Error('database unavailable'));
+
+      const res = await request(app).get('/api/health');
+
+      expect(res.statusCode).toBe(500);
+      expect(res.body).toEqual({
+        success: false,
+        message: 'Server is running but database is disconnected',
+        database: 'disconnected',
+        error: 'database unavailable'
+      });
     });
   });
 
