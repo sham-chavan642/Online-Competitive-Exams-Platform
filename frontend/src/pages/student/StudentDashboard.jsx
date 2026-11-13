@@ -116,7 +116,7 @@ const StudentDashboard = () => {
       <div className="grid grid-cols-4 gap-4 mb-8">
         <StatCard
           title="Available Exams"
-          value={examsList.length}
+          value={examsLoading || examsError ? '—' : examsList.length}
           subtitle="Ready to attempt"
           icon={FileText}
           color="primary"
@@ -124,7 +124,7 @@ const StudentDashboard = () => {
 
         <StatCard
           title="Tests Completed"
-          value={completedCount}
+          value={resultsLoading || resultsError ? '—' : completedCount}
           subtitle="Evaluation finalized"
           icon={CheckCircle2}
           color="success"
@@ -132,7 +132,7 @@ const StudentDashboard = () => {
 
         <StatCard
           title="Average Score"
-          value={`${avgScore}%`}
+          value={resultsLoading || resultsError ? '—' : `${avgScore}%`}
           subtitle="Across all attempts"
           icon={TrendingUp}
           color="warning"
@@ -140,8 +140,14 @@ const StudentDashboard = () => {
 
         <StatCard
           title="Exams Passed"
-          value={passedCount}
-          subtitle={`${completedCount > 0 ? ((passedCount / completedCount) * 100).toFixed(0) : 0}% passing rate`}
+          value={resultsLoading || resultsError ? '—' : passedCount}
+          subtitle={
+            resultsLoading
+              ? 'Loading results...'
+              : resultsError
+                ? 'Results unavailable'
+                : `${completedCount > 0 ? ((passedCount / completedCount) * 100).toFixed(0) : 0}% passing rate`
+          }
           icon={Award}
           color="primary"
         />
